@@ -28,6 +28,52 @@ if box == 'Overall':
 elif box == 'Startup':
     name = st.sidebar.selectbox('Name',df['Startup Name'].unique())
     st.title('Startup Analysis')
+    def info():
+        curr_data = df[df['Startup Name']==name]
+        st.subheader(f"Startup Name: {name}")
+        col1, col2 ,col3= st.columns(3)
+        col1.metric('Industry :',curr_data['Industry Vertical'].unique()[0])
+        col2.metric('Sub Industry',curr_data['SubVertical'].values[0])
+        col3.metric('Location',curr_data['City  Location'].values[0])
+        
+        st.subheader('Funding Round')
+        st.code("""
+        curr_data[['City  Location','Investors Name','Date']]
+        """)
+        st.dataframe(curr_data[['City  Location','Investors Name','Date']])
+
+        st.info('Similar Company')
+        st.dataframe(df[df['Startup Name'].str.lower().str.contains(name.lower())]['Startup Name'])
+
+
+    but1 = st.sidebar.button('Startup Analysis')
+    if but1:
+        info()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 else:
 
     def info(name):
